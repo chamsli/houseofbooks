@@ -1,20 +1,19 @@
 // Initialization functions
+
 window.addEventListener("load", () => {
-  addButton.addEventListener("click", saveBook);
-  getBooks();
+    addButton.addEventListener("click", saveBook);
+    getBooks();
 })
 
 // API with server functions
 async function getBooks() {
-  // COMPLETE CODE
   const res = await fetch("getBooks.php");
   const data = await res.json();
   populateCards(data);
 }
 
 async function addBook(book) {
-  // COMPLETE CODE
-  await fetch('addBooks.php', {
+  await fetch("addBook.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(book)
@@ -22,7 +21,7 @@ async function addBook(book) {
 }
 
 async function editBook(book) {
-  await fetch('editBook.php', {
+  await fetch("editBook.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(book)
@@ -31,10 +30,12 @@ async function editBook(book) {
 
 async function deleteBook(id) {
   const payload = new FormData();
-payload.append("id",id);
+  payload.append("id",id);
 
-  // CODE HERE
-await fetch('deleteBook.php',{ method: "POST", body: payload }); 
+  await fetch("deleteBook.php", {
+    method: "POST",
+    body: payload
+  });
   getBooks();
 }
 
